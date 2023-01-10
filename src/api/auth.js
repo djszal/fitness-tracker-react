@@ -19,3 +19,19 @@ export const registerUser = async (username, password) => {
     console.error(error);
   }
 };
+
+export const fetchMe = async (token) => {
+  try {
+    const response = await fetch(`${baseUrl}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    console.log("&&&&&&&&&&&", data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
