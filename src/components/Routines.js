@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 const Routines = (props) => {
   const allRoutines = props.routines;
   const allActivites = props.routines.activities;
-  console.log("OOOOOOOOOOO", allRoutines);
-  console.log("XXXXXXXXXXX", allActivites);
 
   return (
     <>
@@ -17,8 +15,8 @@ const Routines = (props) => {
               <h2 className="routine-name">{routine.name}</h2>
               <h3 className="routine-creator-name">{routine.creatorName}</h3>
               <p className="routine-goal">{routine.goal}</p>
-              {routine.activities.map((activity) => (
-                <div className="single-activity">
+              {routine.activities.map((activity, index) => (
+                <div className="single-activity" key={index}>
                   <p className="activity-name">{activity.name}</p>
                   <p className="activity-description">{activity.description}</p>
                   <p className="activity-duration">

@@ -9,11 +9,7 @@ const Login = () => {
   const [passwordLogin, setPasswordLogin] = useState("");
   const [stateError, setStateError] = useState("");
   const navigate = useNavigate();
-  console.log("stateError", stateError);
-
-  //     setLoginErrors([errorMessage])
-  //     return;
-  //   }
+  //   console.log("stateError", stateError);
 
   return (
     <>
@@ -27,10 +23,6 @@ const Login = () => {
               const errorMessage = "Please enter valid username and password";
               console.log(errorMessage);
               setStateError(errorMessage);
-            } else if (passwordLogin.length < 8) {
-              const passwordLengthInvalid =
-                "Your password needs to be at least 8 characters";
-              setStateError(passwordLengthInvalid);
             } else {
               try {
                 e.preventDefault();
@@ -60,7 +52,7 @@ const Login = () => {
           ></input>
           <button type="submit">Login</button>
           <Link to="/register">Don't have an account? Register Here</Link>
-          {stateError ? <h3>{stateError}</h3> : ""};
+          {stateError ? <h3>{stateError}</h3> : ""}
         </form>
       </div>
     </>
