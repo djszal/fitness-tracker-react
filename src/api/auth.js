@@ -20,6 +20,26 @@ export const registerUser = async (username, password) => {
   }
 };
 
+export const loginUser = async (username, password) => {
+  try {
+    const response = await fetch(`${baseUrl}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+    const reply = await response.json();
+    console.log("^^^^^^^^^^^^", reply.token);
+    return reply;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const fetchMe = async (token) => {
   try {
     const response = await fetch(`${baseUrl}/users/me`, {

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../api/auth";
 
 const Login = () => {
   const [usernameLogin, setUsernameLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
-
   const navigate = useNavigate();
 
   //   if (!usernameLogin || !passwordLogin || passwordLogin.length < 8) {
@@ -25,9 +25,9 @@ const Login = () => {
           onSubmit={async (e) => {
             try {
               e.preventDefault();
-              console.log("USERNAME ", username);
-              const token = await loginUser(username, password);
-              localStorage.setItem("token", token);
+              const response = await loginUser(usernameLogin, passwordLogin);
+              //   console.log("USERNAME ", response);
+              localStorage.setItem("token", response.token);
               navigate("/");
             } catch (error) {
               console.error(error);
