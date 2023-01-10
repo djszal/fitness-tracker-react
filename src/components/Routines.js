@@ -15,6 +15,7 @@ const Routines = (props) => {
           <div className="routine-block" key={index}>
             <div className="single-routine">
               <h2 className="routine-name">{routine.name}</h2>
+              <h3 className="routine-creator-name">{routine.creatorName}</h3>
               <p className="routine-goal">{routine.goal}</p>
               {routine.activities.map((activity) => (
                 <div className="single-activity">

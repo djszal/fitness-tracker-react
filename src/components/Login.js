@@ -7,12 +7,11 @@ import { loginUser } from "../api/auth";
 const Login = () => {
   const [usernameLogin, setUsernameLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
+  const [stateError, setStateError] = useState("");
   const navigate = useNavigate();
+  console.log("stateError", stateError);
 
-  //   if (!usernameLogin || !passwordLogin || passwordLogin.length < 8) {
-  //     const errorMessage = "Either no input or password too short";
-  //     console.log(errorMessage);
-  //     // setLoginErrors([errorMessage])
+  //     setLoginErrors([errorMessage])
   //     return;
   //   }
 
@@ -23,14 +22,25 @@ const Login = () => {
         <form
           className="login-form"
           onSubmit={async (e) => {
-            try {
+            if (!usernameLogin || !passwordLogin) {
               e.preventDefault();
-              const response = await loginUser(usernameLogin, passwordLogin);
-              //   console.log("USERNAME ", response);
-              localStorage.setItem("token", response.token);
-              navigate("/");
-            } catch (error) {
-              console.error(error);
+              const errorMessage = "Please enter valid username and password";
+              console.log(errorMessage);
+              setStateError(errorMessage);
+            } else if (passwordLogin.length < 8) {
+              const passwordLengthInvalid =
+                "Your password needs to be at least 8 characters";
+              setStateError(passwordLengthInvalid);
+            } else {
+              try {
+                e.preventDefault();
+                const response = await loginUser(usernameLogin, passwordLogin);
+                //   console.log("USERNAME ", response);
+                localStorage.setItem("token", response.token);
+                navigate("/");
+              } catch (error) {
+                console.error(error);
+              }
             }
           }}
         >
@@ -50,6 +60,7 @@ const Login = () => {
           ></input>
           <button type="submit">Login</button>
           <Link to="/register">Don't have an account? Register Here</Link>
+          {stateError ? <h3>{stateError}</h3> : ""};
         </form>
       </div>
     </>
