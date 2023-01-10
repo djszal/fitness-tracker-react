@@ -5,12 +5,16 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { fetchMe } from "./api/auth";
+import getRoutines from "./api/api";
 
 const App = () => {
   const [userData, setUserData] = useState({});
   //   console.log(userData);
   const [token, setToken] = useState(localStorage.getItem("token"));
   console.log(token);
+  const [routines, setRoutines] = useState([]);
+
+  console.log("#########", routines);
 
   useEffect(() => {
     if (token) {
@@ -21,6 +25,11 @@ const App = () => {
       getMe();
     }
   }, []);
+
+  useEffect(() => {
+    getRoutines(setRoutines);
+  }, []);
+
   return (
     <>
       <Header />
