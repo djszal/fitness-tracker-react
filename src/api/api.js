@@ -6,7 +6,7 @@ const getRoutines = async (setRoutines) => {
   try {
     const response = await fetch(`${baseUrl}/routines`);
     const data = await response.json();
-    console.log(`getRoutines API Call `, data);
+    // console.log(`getRoutines API Call `, data);
     setRoutines(data);
   } catch (error) {
     console.error(error);

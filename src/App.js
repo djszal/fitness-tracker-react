@@ -4,17 +4,16 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Routines from "./components/Routines";
 import { fetchMe } from "./api/auth";
 import getRoutines from "./api/api";
 
 const App = () => {
   const [userData, setUserData] = useState({});
-  //   console.log(userData);
   const [token, setToken] = useState(localStorage.getItem("token"));
-  console.log(token);
   const [routines, setRoutines] = useState([]);
 
-  console.log("#########", routines);
+  //   console.log("#########", routines);
 
   useEffect(() => {
     if (token) {
@@ -39,6 +38,11 @@ const App = () => {
           <Route exact path="/" element={<Home />}></Route>
           <Route exact path="/login" element={<Login />}></Route>
           <Route exact path="/register" element={<Register />}></Route>
+          <Route
+            exact
+            path="/public_routines"
+            element={<Routines routines={routines} />}
+          ></Route>
         </Routes>
       </div>
     </>
