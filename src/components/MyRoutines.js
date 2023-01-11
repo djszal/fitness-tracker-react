@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { createNewRoutine } from "../api/api";
+import "./MyRoutines.css";
 
 const MyRoutines = (props) => {
   const [name, setRoutineName] = useState("");
   const [goal, setRoutineGoal] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   // const [token, setToken] = useState(localStorage.getItem("token"));
-  const { routines, userData, token } = props;
+  const { routines, userData, token, userRoutines } = props;
 
-  console.log(
-    "LLLLLLLLLLLLL",
-    props,
-    userData,
-    token,
-    routines.filter((r) => r.creatorName === userData.username)
-    // .sort((a, b) => b.id - a.id)
-  );
+  // console.log(
+  //   "LLLLLLLLLLLLL",
+  //   props,
+  //   userData,
+  //   token,
+  //   routines.filter((r) => r.creatorName === userData.username)
+  //   .sort((a, b) => b.id - a.id)
+  // );
   // console.log("DDDDDDDDDDDD", typeof isPublic);
   return (
     <>
@@ -56,7 +57,23 @@ const MyRoutines = (props) => {
         </button>
       </form>
       <h1>My Routines</h1>
-      <ul>
+      {userRoutines.map((routine, index) => {
+        return (
+          <div className="routine-block" key={index}>
+            <div className="single-routine">
+              <h2 className="routine-name">Routine Name: {routine.name}</h2>
+              <h3 className="routine-name">Routine Goal: {routine.goal}</h3>
+              <button type="submit" className="delete-button">
+                Delete
+              </button>
+              <button type="submit" className="edit-button">
+                Edit
+              </button>
+            </div>
+          </div>
+        );
+      })}
+      {/* <ul>
         {
           //Routines go here
           routines
@@ -70,7 +87,7 @@ const MyRoutines = (props) => {
               );
             })
         }
-      </ul>
+      </ul> */}
     </>
   );
 };

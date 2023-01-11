@@ -13,10 +13,7 @@ const getRoutines = async (setRoutines) => {
 
 const getUserRoutinesWithAuth = async (setRoutines, token) => {
   var myHeaders = new Headers();
-  myHeaders.append(
-    "Authorization",
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyLCJ1c2VybmFtZSI6IkNoZWxzZWEiLCJpYXQiOjE2NzM0NTQ0NTAsImV4cCI6MTY3NDA1OTI1MH0.kRVlfyb-tY85goULR21E59KIRSl8Vp2TvVEOtQsW-VQ"
-  );
+  myHeaders.append("Authorization", `Bearer ${token}`);
 
   var requestOptions = {
     method: "GET",
@@ -76,7 +73,7 @@ const getRoutinesByUser = async (token, username) => {
     });
     const data = await response.json();
     console.log(`getUserRoutines API Call `, data);
-    // setRoutines(data);
+    return data;
   } catch (error) {
     console.error(error);
   }

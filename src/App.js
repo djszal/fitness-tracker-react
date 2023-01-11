@@ -18,7 +18,7 @@ const App = () => {
   const [userRoutines, setUserRoutines] = useState([]);
 
   //   console.log("#########", userData.username);
-  //   console.log("222222222222222", token);
+  console.log("222222222222222", token);
 
   useEffect(() => {
     getRoutines(setRoutines);
@@ -32,7 +32,7 @@ const App = () => {
       };
       getMe();
     }
-    if (userData) {
+    if (userData.username) {
       const usersRoutines = async () => {
         const routineData = await getRoutinesByUser(token, userData.username);
         console.log("routine data", routineData);
@@ -70,6 +70,7 @@ const App = () => {
                 setRoutines={setRoutines}
                 routines={routines}
                 userData={userData}
+                userRoutines={userRoutines}
               />
             }
           ></Route>
