@@ -13,7 +13,7 @@ export const registerUser = async (username, password) => {
       }),
     });
     const token = await response.json();
-    console.log("TOKEN?? ", token.token);
+    // console.log("TOKEN?? ", token.token);
     return token.token;
   } catch (error) {
     console.error(error);

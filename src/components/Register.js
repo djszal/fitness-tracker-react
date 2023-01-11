@@ -23,7 +23,7 @@ const Register = () => {
             } else {
               try {
                 e.preventDefault();
-                console.log("USERNAME ", username);
+                // console.log("USERNAME ", username);
                 const token = await registerUser(username, password);
                 localStorage.setItem("token", token);
                 navigate("/");

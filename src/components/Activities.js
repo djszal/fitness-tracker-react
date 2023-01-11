@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Activities = (props) => {
   const allActivites = props.activities;
-  console.log("ssssssss", allActivites);
+  //   console.log("ssssssss", allActivites);
   return (
     <>
       <h1>All Public Activities</h1>

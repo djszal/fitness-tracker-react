@@ -6,6 +6,7 @@ const Header = (props) => {
   //   console.log("OOOOOOO", props.token);
   const logout = () => {
     localStorage.clear();
+    props.setToken("");
   };
   return (
     <>

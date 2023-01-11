@@ -4,7 +4,7 @@ import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/auth";
 
-const Login = () => {
+const Login = (props) => {
   const [usernameLogin, setUsernameLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
   const [stateError, setStateError] = useState("");
@@ -29,6 +29,7 @@ const Login = () => {
                 const response = await loginUser(usernameLogin, passwordLogin);
                 //   console.log("USERNAME ", response);
                 localStorage.setItem("token", response.token);
+                props.setToken(response.token);
                 navigate("/");
               } catch (error) {
                 console.error(error);

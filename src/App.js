@@ -12,11 +12,11 @@ import { getRoutines, getActivities } from "./api/api";
 
 const App = () => {
   const [userData, setUserData] = useState({});
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState("");
   const [routines, setRoutines] = useState([]);
   const [activities, setActivities] = useState([]);
 
-  console.log("#########", activities);
+  //   console.log("#########", token);
 
   useEffect(() => {
     if (token) {
@@ -35,12 +35,16 @@ const App = () => {
 
   return (
     <>
-      <Header token={token} />
+      <Header setToken={setToken} token={token} />
 
       <div>
         <Routes>
           <Route exact path="/" element={<Home />}></Route>
-          <Route exact path="/login" element={<Login />}></Route>
+          <Route
+            exact
+            path="/login"
+            element={<Login setToken={setToken} />}
+          ></Route>
           <Route exact path="/register" element={<Register />}></Route>
           <Route
             exact
