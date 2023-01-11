@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
-const Header = () => {
+const Header = (props) => {
+  //   console.log("OOOOOOO", props.token);
   const logout = () => {
     localStorage.clear();
   };
@@ -17,18 +18,26 @@ const Header = () => {
           <Link to={"/public_routines"} className="nav-links">
             Routines
           </Link>
-          <Link to={"/myroutines"} className="nav-links">
-            My Routines
-          </Link>
+          {props.token ? (
+            <Link to={"/my-routines"} className="nav-links">
+              My Routines
+            </Link>
+          ) : (
+            ""
+          )}
+
           <Link to={"/activities"} className="nav-links">
             Activities
           </Link>
-          <Link to={"/login"} className="nav-links">
-            Login
-          </Link>
-          <Link to={"/login"} className="nav-links" onClick={logout}>
-            Logout
-          </Link>
+          {!props.token ? (
+            <Link to={"/login"} className="nav-links">
+              Login
+            </Link>
+          ) : (
+            <Link to={"/login"} className="nav-links" onClick={logout}>
+              Logout
+            </Link>
+          )}
         </div>
       </div>
     </>
