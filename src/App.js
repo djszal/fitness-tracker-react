@@ -5,15 +5,18 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Routines from "./components/Routines";
+import MyRoutines from "./components/MyRoutines";
+import Activities from "./components/Activities";
 import { fetchMe } from "./api/auth";
-import getRoutines from "./api/api";
+import { getRoutines, getActivities } from "./api/api";
 
 const App = () => {
   const [userData, setUserData] = useState({});
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [routines, setRoutines] = useState([]);
+  const [activities, setActivities] = useState([]);
 
-  //   console.log("#########", routines);
+  console.log("#########", activities);
 
   useEffect(() => {
     if (token) {
@@ -27,11 +30,12 @@ const App = () => {
 
   useEffect(() => {
     getRoutines(setRoutines);
+    getActivities(setActivities);
   }, []);
 
   return (
     <>
-      <Header />
+      <Header token={token} />
 
       <div>
         <Routes>
@@ -40,8 +44,23 @@ const App = () => {
           <Route exact path="/register" element={<Register />}></Route>
           <Route
             exact
+            path="/my-routines"
+            element={<MyRoutines token={token} />}
+          ></Route>
+          <Route
+            exact
             path="/public_routines"
             element={<Routines routines={routines} />}
+          ></Route>
+          <Route
+            exact
+            path="/activities"
+            element={
+              <Activities
+                activities={activities}
+                setActivities={setActivities}
+              />
+            }
           ></Route>
         </Routes>
       </div>

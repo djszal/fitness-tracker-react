@@ -13,4 +13,14 @@ const getRoutines = async (setRoutines) => {
   }
 };
 
-export default getRoutines;
+const getActivities = async (setActivities) => {
+  try {
+    const response = await fetch(`${baseUrl}/activities`);
+    const data = await response.json();
+    setActivities(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getRoutines, getActivities };
