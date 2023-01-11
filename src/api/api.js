@@ -23,4 +23,26 @@ const getActivities = async (setActivities) => {
   }
 };
 
-export { getRoutines, getActivities };
+const createNewRoutine = async (name, goal, isPublic, token) => {
+  try {
+    const response = await fetch(`${baseUrl}/routines`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        goal,
+        isPublic,
+      }),
+    });
+    const data = await response.json();
+    console.log("YYYYYYYYYYYY", data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getRoutines, getActivities, createNewRoutine };

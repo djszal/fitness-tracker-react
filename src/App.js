@@ -16,7 +16,7 @@ const App = () => {
   const [routines, setRoutines] = useState([]);
   const [activities, setActivities] = useState([]);
 
-  console.log("#########", token);
+  console.log("#########", routines);
 
   useEffect(() => {
     if (token) {
@@ -31,6 +31,7 @@ const App = () => {
   useEffect(() => {
     getRoutines(setRoutines);
     getActivities(setActivities);
+    setToken(localStorage.getItem("token"));
   }, []);
 
   return (
@@ -53,7 +54,13 @@ const App = () => {
           <Route
             exact
             path="/my-routines"
-            element={<MyRoutines token={token} />}
+            element={
+              <MyRoutines
+                token={token}
+                setRoutines={setRoutines}
+                routines={routines}
+              />
+            }
           ></Route>
           <Route
             exact

@@ -1,41 +1,51 @@
 import React, { useState, useEffect } from "react";
+import { createNewRoutine } from "../api/api";
 
 const MyRoutines = (props) => {
-  const [routineName, setRoutineName] = useState("");
-  const [routineGoal, setGoal] = useState("");
-  const [routineIsPublic, setIsPublic] = useState(false);
+  const [name, setRoutineName] = useState("");
+  const [goal, setRoutineGoal] = useState("");
+  const [isPublic, setIsPublic] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  console.log("LLLLLLLLLLLLL", isPublic);
+  // console.log("DDDDDDDDDDDD", typeof isPublic);
   return (
     <>
-      <form onSubmit={(e) => ev.preventDefault()}>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          const result = await createNewRoutine(name, goal, isPublic, token);
+          // props.setRoutines(result);
+          console.log("44444444444444", result);
+        }}
+      >
         <h3>Create a New Routine</h3>
         <input
           name="routine name"
           type="text"
           placeholder="Routine Name"
-          value={routineName}
-          onChange={(e) => setName(e.target.value)}
+          value={name}
+          onChange={(e) => setRoutineName(e.target.value)}
         />
         <input
           name="description"
           type="text"
           placeholder="Routine Goal"
-          value={routineGoal}
-          onChange={(e) => setGoal(e.target.value)}
+          value={goal}
+          onChange={(e) => setRoutineGoal(e.target.value)}
         />
         <label>
-          Private Routine?
+          Public Routine?
           <input
-            name="routine-goal"
+            name="routine-isPublic"
             type="checkbox"
-            checked={routineIsPublic}
-            onChange={(e) => setIsPublic(e.target.value)}
+            checked={isPublic}
+            onChange={(e) => setIsPublic(e.target.checked)}
           />
         </label>
-        <input
-          type="submit"
-          value="createPost"
-          onClick={console.log("Hello")}
-        />
+        <button type="submit" className="create-new-routine-button">
+          Create New Routine
+        </button>
       </form>
     </>
   );

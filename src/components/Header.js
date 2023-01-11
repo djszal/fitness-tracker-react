@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 
 const Header = (props) => {
-  //   console.log("OOOOOOO", props.token);
+  console.log("OOOOOOO", props.token);
+
   const logout = () => {
     localStorage.clear();
     props.setToken("");
   };
+
   return (
     <>
       <div className="header">
