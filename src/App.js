@@ -8,29 +8,39 @@ import Routines from "./components/Routines";
 import MyRoutines from "./components/MyRoutines";
 import Activities from "./components/Activities";
 import { fetchMe } from "./api/auth";
-import { getRoutines, getActivities } from "./api/api";
+import { getRoutines, getActivities, getRoutinesByUser } from "./api/api";
 
 const App = () => {
   const [userData, setUserData] = useState({});
   const [token, setToken] = useState("");
   const [routines, setRoutines] = useState([]);
   const [activities, setActivities] = useState([]);
+  const [userRoutines, setUserRoutines] = useState([]);
 
-  console.log("#########", userData);
+  //   console.log("#########", userData.username);
+  //   console.log("222222222222222", token);
 
   useEffect(() => {
+    getRoutines(setRoutines);
+    setToken(localStorage.getItem("token"));
+    getActivities(setActivities);
     if (token) {
       const getMe = async () => {
         const data = await fetchMe(token);
         setUserData(data);
-        getRoutines(setRoutines);
-        getActivities(setActivities);
-        setToken(localStorage.getItem("token"));
-        console.log("UUUUUUUUUUUUUU", data);
+        // console.log("UUUUUUUUUUUUUU", data);
       };
       getMe();
     }
-  }, []);
+    if (userData) {
+      const usersRoutines = async () => {
+        const routineData = await getRoutinesByUser(token, userData.username);
+        console.log("routine data", routineData);
+        setUserRoutines(routineData);
+      };
+      usersRoutines();
+    }
+  }, [token, userData.username]);
 
   useEffect(() => {}, []);
 

@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
-
 const baseUrl = "http://fitnesstrac-kr.herokuapp.com/api";
 
 const getRoutines = async (setRoutines) => {
   try {
     const response = await fetch(`${baseUrl}/routines`);
     const data = await response.json();
-    console.log(`getRoutines API Call `, data);
+    // console.log(`getRoutines API Call `, data);
     setRoutines(data);
   } catch (error) {
     console.error(error);
@@ -67,4 +65,21 @@ const createNewRoutine = async (name, goal, isPublic, token) => {
   }
 };
 
-export { getRoutines, getActivities, createNewRoutine };
+const getRoutinesByUser = async (token, username) => {
+  try {
+    const response = await fetch(`${baseUrl}/users/${username}/routines`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    console.log(`getUserRoutines API Call `, data);
+    // setRoutines(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getRoutines, getActivities, createNewRoutine, getRoutinesByUser };
