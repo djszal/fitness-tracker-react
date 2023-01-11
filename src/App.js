@@ -16,23 +16,23 @@ const App = () => {
   const [routines, setRoutines] = useState([]);
   const [activities, setActivities] = useState([]);
 
-  console.log("#########", routines);
+  console.log("#########", userData);
 
   useEffect(() => {
     if (token) {
       const getMe = async () => {
         const data = await fetchMe(token);
         setUserData(data);
+        getRoutines(setRoutines);
+        getActivities(setActivities);
+        setToken(localStorage.getItem("token"));
+        console.log("UUUUUUUUUUUUUU", data);
       };
       getMe();
     }
   }, []);
 
-  useEffect(() => {
-    getRoutines(setRoutines);
-    getActivities(setActivities);
-    setToken(localStorage.getItem("token"));
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -59,6 +59,7 @@ const App = () => {
                 token={token}
                 setRoutines={setRoutines}
                 routines={routines}
+                userData={userData}
               />
             }
           ></Route>

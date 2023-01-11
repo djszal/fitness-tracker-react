@@ -6,8 +6,15 @@ const MyRoutines = (props) => {
   const [goal, setRoutineGoal] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const { routines, userData } = props;
 
-  console.log("LLLLLLLLLLLLL", isPublic);
+  console.log(
+    "LLLLLLLLLLLLL",
+    props,
+    routines
+      .filter((r) => r.creatorName == userData.username)
+      .sort((a, b) => b.id - a.id)
+  );
   // console.log("DDDDDDDDDDDD", typeof isPublic);
   return (
     <>
@@ -47,6 +54,17 @@ const MyRoutines = (props) => {
           Create New Routine
         </button>
       </form>
+      <h1>My Routines</h1>
+      <ul>
+        {
+          //Routines go here
+          routines
+            .filter((routine) => routine.creatorName === userData.username)
+            .map((routine) => {
+              return <li key={routine.id}>{routine.name}</li>;
+            })
+        }
+      </ul>
     </>
   );
 };

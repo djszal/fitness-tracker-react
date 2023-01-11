@@ -6,11 +6,33 @@ const getRoutines = async (setRoutines) => {
   try {
     const response = await fetch(`${baseUrl}/routines`);
     const data = await response.json();
-    // console.log(`getRoutines API Call `, data);
+    console.log(`getRoutines API Call `, data);
     setRoutines(data);
   } catch (error) {
     console.error(error);
   }
+};
+
+const getUserRoutinesWithAuth = async (setRoutines, token) => {
+  var myHeaders = new Headers();
+  myHeaders.append(
+    "Authorization",
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyLCJ1c2VybmFtZSI6IkNoZWxzZWEiLCJpYXQiOjE2NzM0NTQ0NTAsImV4cCI6MTY3NDA1OTI1MH0.kRVlfyb-tY85goULR21E59KIRSl8Vp2TvVEOtQsW-VQ"
+  );
+
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  fetch(
+    "http://fitnesstrac-kr.herokuapp.com/api/users/Chelsea/routines",
+    requestOptions
+  )
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 };
 
 const getActivities = async (setActivities) => {
