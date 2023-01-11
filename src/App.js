@@ -16,7 +16,7 @@ const App = () => {
   const [routines, setRoutines] = useState([]);
   const [activities, setActivities] = useState([]);
 
-  //   console.log("#########", token);
+  console.log("#########", token);
 
   useEffect(() => {
     if (token) {
@@ -45,7 +45,11 @@ const App = () => {
             path="/login"
             element={<Login setToken={setToken} />}
           ></Route>
-          <Route exact path="/register" element={<Register />}></Route>
+          <Route
+            exact
+            path="/register"
+            element={<Register setToken={setToken} />}
+          ></Route>
           <Route
             exact
             path="/my-routines"

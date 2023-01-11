@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { registerUser } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [stateError, setStateError] = useState("");
@@ -26,6 +26,7 @@ const Register = () => {
                 // console.log("USERNAME ", username);
                 const token = await registerUser(username, password);
                 localStorage.setItem("token", token);
+                props.setToken(token);
                 navigate("/");
               } catch (error) {
                 console.error(error);
