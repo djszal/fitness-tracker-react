@@ -47,7 +47,11 @@ const MyRoutines = (props) => {
       routineId,
       token,
     });
-    console.log("TTTTTTTTTTTTTTTTT", result);
+
+    if (result) {
+      setUserRoutines();
+    }
+    // console.log("TTTTTTTTTTTTTTTTT", result);
   };
 
   return (

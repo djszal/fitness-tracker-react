@@ -125,7 +125,7 @@ const attachActivityToRoutine = async ({
     const parseCount = parseInt(count);
     const parseDur = parseInt(duration);
     const parseAct = parseInt(activityId);
-    console.log("XXXXXXXXXXX", parseCount);
+    // console.log("XXXXXXXXXXX", parseCount);
     const response = await fetch(
       `${baseUrl}/routines/${routineId}/activities`,
       {
