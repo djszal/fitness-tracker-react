@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createNewRoutine } from "../api/api";
 import "./MyRoutines.css";
-import { deleteRoutine } from "../api/api";
+import { deleteRoutine, getRoutines } from "../api/api";
 
 const MyRoutines = (props) => {
   const [name, setRoutineName] = useState("");
@@ -47,11 +47,12 @@ const MyRoutines = (props) => {
           e.preventDefault();
           const result = await createNewRoutine(name, goal, isPublic, token);
           // props.setRoutines(result);
-          console.log("44444444444444", result);
+          // console.log("44444444444444", result);
 
           setUserRoutines([...userRoutines, result]);
           // *********************************************************************************************
-          setRoutines([...routines, result]);
+          // setRoutines([...routines, result]);
+          getRoutines(setRoutines);
         }}
       >
         <h3>Create a New Routine</h3>
@@ -101,8 +102,22 @@ const MyRoutines = (props) => {
               </button>
               <div className="update-routine-activity-block" key={index}>
                 <form className="create-activity">
-                  <input></input>
-                  <input></input>
+                  <label>
+                    Count:
+                    <input
+                      type="text"
+                      name="count"
+                      placeholder="Insert Count"
+                    ></input>
+                  </label>
+                  <label>
+                    Duration:
+                    <input
+                      type="text"
+                      name="duration"
+                      placeholder="Insert Duration"
+                    ></input>
+                  </label>
                   <select>
                     {act.map((activity, index) => {
                       return <option key={index}>{activity.name}</option>;

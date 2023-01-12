@@ -3,12 +3,11 @@ import React, { useState, useEffect } from "react";
 const Routines = (props) => {
   const allRoutines = props.routines;
   const allActivites = props.routines.activities;
-  console.log("AAAAAAAAA", allRoutines);
+  //   console.log("AAAAAAAAA", allRoutines)
 
   return (
     <>
       <h1>All Public Routines</h1>
-
       {allRoutines.map((routine, index) => {
         return (
           <div className="routine-block" key={index}>
