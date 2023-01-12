@@ -5,6 +5,7 @@ import { createNewActivity } from "../api/api";
 const Activities = (props) => {
   const [name, setActivityName] = useState("");
   const [description, setActivityDescription] = useState("");
+  const [stateError, setStateError] = useState("");
   const allActivites = props.activities;
   const { token, setActivities, activities } = props;
   console.log("ssssssss", props);
@@ -15,12 +16,15 @@ const Activities = (props) => {
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            const result = await createNewActivity(name, description, token);
-            // props.setRoutines(result);
-            console.log("44444444444444", result);
 
-            setActivities([...activities, result]);
-            // getRoutines(setRoutines);
+            const result = await createNewActivity(name, description, token);
+            if (result.error) {
+              const errorMessage = "Activity name already exists";
+              console.log(errorMessage);
+              setStateError(errorMessage);
+            } else {
+              setActivities([...activities, result]);
+            }
           }}
         >
           <h3>Create a New Activity</h3>
@@ -41,6 +45,7 @@ const Activities = (props) => {
           <button type="submit" className="create-new-activity-button">
             Create New Activity
           </button>
+          {stateError ? <h3>{stateError}</h3> : ""}
         </form>
       ) : (
         ""

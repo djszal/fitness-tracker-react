@@ -7,6 +7,7 @@ const MyRoutines = (props) => {
   const [name, setRoutineName] = useState("");
   const [goal, setRoutineGoal] = useState("");
   const [isPublic, setIsPublic] = useState(false);
+  const [stateError, setStateError] = useState("");
   // const [token, setToken] = useState(localStorage.getItem("token"));
   const {
     routines,
@@ -46,13 +47,14 @@ const MyRoutines = (props) => {
         onSubmit={async (e) => {
           e.preventDefault();
           const result = await createNewRoutine(name, goal, isPublic, token);
-          // props.setRoutines(result);
-          // console.log("44444444444444", result);
-
-          setUserRoutines([...userRoutines, result]);
-          // *********************************************************************************************
-          // setRoutines([...routines, result]);
-          getRoutines(setRoutines);
+          if (result.error) {
+            const errorMessage = "Routine name already exists";
+            console.log(errorMessage);
+            setStateError(errorMessage);
+          } else {
+            setUserRoutines([...userRoutines, result]);
+            getRoutines(setRoutines);
+          }
         }}
       >
         <h3>Create a New Routine</h3>
@@ -82,6 +84,7 @@ const MyRoutines = (props) => {
         <button type="submit" className="create-new-routine-button">
           Create New Routine
         </button>
+        {stateError ? <h3>{stateError}</h3> : ""}
       </form>
 
       <h1>My Routines</h1>
