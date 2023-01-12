@@ -1,20 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { createNewRoutine } from "../api/api";
 import "./MyRoutines.css";
-import { deleteRoutine, getRoutines } from "../api/api";
+import {
+  deleteRoutine,
+  getRoutines,
+  attachActivityToRoutine,
+} from "../api/api";
 
 const MyRoutines = (props) => {
   const [name, setRoutineName] = useState("");
   const [goal, setRoutineGoal] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [stateError, setStateError] = useState("");
-  const [activityId, setActivityId] = useState();
-  const [count, setCount] = useState();
-  const [duration, setDuration] = useState();
+  const [activityId, setActivityId] = useState("");
+  const [count, setCount] = useState("");
+  const [duration, setDuration] = useState("");
+  const [routineId, setRoutineId] = useState();
+
   // const [token, setToken] = useState(localStorage.getItem("token"));
-  const { token, userRoutines, setUserRoutines, setRoutines } = props;
+  const { token, userRoutines, setUserRoutines, setRoutines, activities } =
+    props;
   const act = props.activities;
-  console.log("333333333", activityId, count, duration);
+  const userAct = userRoutines.activities;
+
+  // console.log("333333333", [userRoutines]);
 
   const handleDelete = async (routineIdToDelete) => {
     // console.log("11111111111", routineIdToDelete);
@@ -28,21 +37,19 @@ const MyRoutines = (props) => {
     }
   };
 
-  const handleAddActivity = async (activityId, duration, count) => {
-    e.preventDefault();
-    console.log("TTTTTTTTTTTTTTTTT", activityId);
-    // const result = await addNewActivity(activityId, count, duration);
+  const handleAddActivity = async (routineId) => {
+    console.log("TTTTTTTTTTTTTTTTT", count, activityId, duration, token);
+
+    const result = await attachActivityToRoutine({
+      activityId,
+      count,
+      duration,
+      routineId,
+      token,
+    });
+    console.log("TTTTTTTTTTTTTTTTT", result);
   };
 
-  // console.log(
-  //   "LLLLLLLLLLLLL",
-  //   props,
-  //   userData,
-  //   token,
-  //   routines.filter((r) => r.creatorName === userData.username)
-  //   .sort((a, b) => b.id - a.id)
-  // );
-  // console.log("DDDDDDDDDDDD", typeof isPublic);
   return (
     <>
       <form
@@ -90,6 +97,7 @@ const MyRoutines = (props) => {
       </form>
 
       <h1>My Routines</h1>
+      {console.log("VVVVVVVV", userRoutines)}
       {userRoutines.map((routine, index) => {
         return (
           <div className="routine-block" key={index}>
@@ -107,6 +115,24 @@ const MyRoutines = (props) => {
                 Edit
               </button>
               <div className="update-routine-activity-block" key={index}>
+                <h2>Activities</h2>
+
+                {routine.activities.map((activity, index) => {
+                  console.log("ZZZZZZZ", activity);
+                  return (
+                    <div className="activities-block" key={index}>
+                      <div className="single-activity">
+                        <h2 className="activity-name">
+                          Activity Name: {activity.name}
+                        </h2>
+                        <h3 className="activity-name">
+                          Activity Description: {activity.description}
+                        </h3>
+                      </div>
+                    </div>
+                  );
+                })}
+
                 <form className="create-activity">
                   <select onChange={(e) => setActivityId(e.target.value)}>
                     {act.map((activity, index) => {
@@ -138,7 +164,12 @@ const MyRoutines = (props) => {
                   <button
                     type="submit"
                     className="submit-activity"
-                    onClick={() => handleAddActivity()}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // setRoutineId(routine.id);
+                      handleAddActivity(routine.id);
+                      // console.log("CCCCCCCCC", routine.id);
+                    }}
                   >
                     Add Activity
                   </button>
@@ -148,21 +179,6 @@ const MyRoutines = (props) => {
           </div>
         );
       })}
-      {/* <ul>
-        {
-          //Routines go here
-          routines
-            .filter((routine) => routine.creatorName === userData.username)
-            .map((routine, index) => {
-              return (
-                <div className="single-activity" key={index}>
-                  <p className="activity-name">{routine.name}</p>
-                  <p className="activity-description">{routine.goal}</p>
-                </div>
-              );
-            })
-        }
-      </ul> */}
     </>
   );
 };

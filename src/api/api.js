@@ -11,21 +11,21 @@ const getRoutines = async (setRoutines) => {
   }
 };
 
-const getUserRoutinesWithAuth = async (setRoutines, token) => {
-  var myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${token}`);
+// const getUserRoutinesWithAuth = async (setRoutines, token) => {
+//   var myHeaders = new Headers();
+//   myHeaders.append("Authorization", `Bearer ${token}`);
 
-  var requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    redirect: "follow",
-  };
+//   var requestOptions = {
+//     method: "GET",
+//     headers: myHeaders,
+//     redirect: "follow",
+//   };
 
-  fetch(`${baseUrl}/users/${username}/routines`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-};
+//   fetch(`${baseUrl}/users/${username}/routines`, requestOptions)
+//     .then((response) => response.text())
+//     .then((result) => console.log(result))
+//     .catch((error) => console.log("error", error));
+// };
 
 const getActivities = async (setActivities) => {
   try {
@@ -114,6 +114,41 @@ const createNewActivity = async (name, description, token) => {
   }
 };
 
+const attachActivityToRoutine = async ({
+  activityId,
+  count,
+  duration,
+  routineId,
+  token,
+}) => {
+  try {
+    const parseCount = parseInt(count);
+    const parseDur = parseInt(duration);
+    const parseAct = parseInt(activityId);
+    console.log("XXXXXXXXXXX", parseCount);
+    const response = await fetch(
+      `${baseUrl}/routines/${routineId}/activities`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          activityId: parseAct,
+          count: parseCount,
+          duration: parseDur,
+        }),
+      }
+    );
+    const data = await response.json();
+    console.log("YYYYYYYYYYYY", data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export {
   getRoutines,
   getActivities,
@@ -121,4 +156,5 @@ export {
   getRoutinesByUser,
   deleteRoutine,
   createNewActivity,
+  attachActivityToRoutine,
 };
