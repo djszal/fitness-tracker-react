@@ -93,10 +93,32 @@ const deleteRoutine = async (token, routineIdToDelete) => {
   }
 };
 
+const createNewActivity = async (name, description, token) => {
+  try {
+    const response = await fetch(`${baseUrl}/activities`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        description,
+      }),
+    });
+    const data = await response.json();
+    console.log("YYYYYYYYYYYY", data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export {
   getRoutines,
   getActivities,
   createNewRoutine,
   getRoutinesByUser,
   deleteRoutine,
+  createNewActivity,
 };

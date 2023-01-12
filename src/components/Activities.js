@@ -1,13 +1,51 @@
 import React, { useState, useEffect } from "react";
 import "./Activities.css";
+import { createNewActivity } from "../api/api";
 
 const Activities = (props) => {
+  const [name, setActivityName] = useState("");
+  const [description, setActivityDescription] = useState("");
   const allActivites = props.activities;
-  //   console.log("ssssssss", allActivites);
+  const { token, setActivities, activities } = props;
+  console.log("ssssssss", props);
   return (
     <>
       <h1>All Public Activities</h1>
+      {token ? (
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            const result = await createNewActivity(name, description, token);
+            // props.setRoutines(result);
+            console.log("44444444444444", result);
 
+            setActivities([...activities, result]);
+            // getRoutines(setRoutines);
+          }}
+        >
+          <h3>Create a New Activity</h3>
+          <input
+            name="activity name"
+            type="text"
+            placeholder="Activity Name"
+            value={name}
+            onChange={(e) => setActivityName(e.target.value)}
+          />
+          <input
+            name="description"
+            type="text"
+            placeholder="Activity Description"
+            value={description}
+            onChange={(e) => setActivityDescription(e.target.value)}
+          />
+          <button type="submit" className="create-new-activity-button">
+            Create New Activity
+          </button>
+        </form>
+      ) : (
+        ""
+      )}
+      ;
       {allActivites.map((activity, index) => {
         return (
           <div className="activity-block" key={index}>

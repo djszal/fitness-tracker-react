@@ -86,6 +86,7 @@ const App = () => {
               <Activities
                 activities={activities}
                 setActivities={setActivities}
+                token={token}
               />
             }
           ></Route>
