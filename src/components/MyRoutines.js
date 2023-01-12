@@ -8,17 +8,13 @@ const MyRoutines = (props) => {
   const [goal, setRoutineGoal] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [stateError, setStateError] = useState("");
+  const [activityId, setActivityId] = useState();
+  const [count, setCount] = useState();
+  const [duration, setDuration] = useState();
   // const [token, setToken] = useState(localStorage.getItem("token"));
-  const {
-    routines,
-    userData,
-    token,
-    userRoutines,
-    setUserRoutines,
-    setRoutines,
-  } = props;
+  const { token, userRoutines, setUserRoutines, setRoutines } = props;
   const act = props.activities;
-  // console.log("333333333", props);
+  console.log("333333333", activityId, count, duration);
 
   const handleDelete = async (routineIdToDelete) => {
     // console.log("11111111111", routineIdToDelete);
@@ -30,6 +26,12 @@ const MyRoutines = (props) => {
       );
       setUserRoutines(newRoutines);
     }
+  };
+
+  const handleAddActivity = async (activityId, duration, count) => {
+    e.preventDefault();
+    console.log("TTTTTTTTTTTTTTTTT", activityId);
+    // const result = await addNewActivity(activityId, count, duration);
   };
 
   // console.log(
@@ -106,28 +108,38 @@ const MyRoutines = (props) => {
               </button>
               <div className="update-routine-activity-block" key={index}>
                 <form className="create-activity">
+                  <select onChange={(e) => setActivityId(e.target.value)}>
+                    {act.map((activity, index) => {
+                      return (
+                        <option key={index} value={activity.id}>
+                          {activity.name}
+                        </option>
+                      );
+                    })}
+                  </select>
                   <label>
                     Count:
                     <input
-                      type="text"
+                      type="number"
                       name="count"
                       placeholder="Insert Count"
+                      onChange={(e) => setCount(e.target.value)}
                     ></input>
                   </label>
                   <label>
                     Duration:
                     <input
-                      type="text"
+                      type="number"
                       name="duration"
                       placeholder="Insert Duration"
+                      onChange={(e) => setDuration(e.target.value)}
                     ></input>
                   </label>
-                  <select>
-                    {act.map((activity, index) => {
-                      return <option key={index}>{activity.name}</option>;
-                    })}
-                  </select>
-                  <button type="submit" className="submit-activity">
+                  <button
+                    type="submit"
+                    className="submit-activity"
+                    onClick={() => handleAddActivity()}
+                  >
                     Add Activity
                   </button>
                 </form>
