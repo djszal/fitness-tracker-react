@@ -17,10 +17,10 @@ const MyRoutines = (props) => {
     setRoutines,
   } = props;
   const act = props.activities;
-  console.log("333333333", props);
+  // console.log("333333333", props);
 
   const handleDelete = async (routineIdToDelete) => {
-    console.log("11111111111", routineIdToDelete);
+    // console.log("11111111111", routineIdToDelete);
     const response = await deleteRoutine(token, routineIdToDelete);
 
     if (response) {
