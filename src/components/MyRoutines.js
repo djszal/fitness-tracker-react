@@ -8,20 +8,27 @@ const MyRoutines = (props) => {
   const [goal, setRoutineGoal] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   // const [token, setToken] = useState(localStorage.getItem("token"));
-  const { routines, userData, token, userRoutines } = props;
+  const {
+    routines,
+    userData,
+    token,
+    userRoutines,
+    setUserRoutines,
+    setRoutines,
+  } = props;
   const act = props.activities;
-  console.log("333333333", act);
+  console.log("333333333", props);
 
   const handleDelete = async (routineIdToDelete) => {
     console.log("11111111111", routineIdToDelete);
     const response = await deleteRoutine(token, routineIdToDelete);
 
-    //   if (response) {
-    //     const newRoutine = routines.filter(
-    //       (routine) => routine.id !== routineIdToDelete
-    //     );
-    //     updatedRoutines(newRoutines);
-    //   }
+    if (response) {
+      const newRoutines = userRoutines.filter(
+        (routine) => routine.id !== routineIdToDelete
+      );
+      setUserRoutines(newRoutines);
+    }
   };
 
   // console.log(
@@ -41,6 +48,9 @@ const MyRoutines = (props) => {
           const result = await createNewRoutine(name, goal, isPublic, token);
           // props.setRoutines(result);
           console.log("44444444444444", result);
+
+          setUserRoutines([...userRoutines, result]);
+          setRoutines([...routines, result]);
         }}
       >
         <h3>Create a New Routine</h3>
@@ -88,18 +98,20 @@ const MyRoutines = (props) => {
               <button type="submit" className="edit-button">
                 Edit
               </button>
-              <form className="create-activity">
-                <input></input>
-                <input></input>
-                <select>
-                  {act.map((activity, index) => {
-                    return <option>{activity.name}</option>;
-                  })}
-                </select>
-                <button type="submit" className="submit-activity">
-                  Update Activity
-                </button>
-              </form>
+              <div className="update-routine-activity-block" key={index}>
+                <form className="create-activity">
+                  <input></input>
+                  <input></input>
+                  <select>
+                    {act.map((activity, index) => {
+                      return <option key={index}>{activity.name}</option>;
+                    })}
+                  </select>
+                  <button type="submit" className="submit-activity">
+                    Add Activity
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         );

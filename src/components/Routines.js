@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 const Routines = (props) => {
   const allRoutines = props.routines;
   const allActivites = props.routines.activities;
+  console.log("AAAAAAAAA", allRoutines);
 
   return (
     <>
