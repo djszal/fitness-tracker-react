@@ -21,10 +21,7 @@ const getUserRoutinesWithAuth = async (setRoutines, token) => {
     redirect: "follow",
   };
 
-  fetch(
-    "http://fitnesstrac-kr.herokuapp.com/api/users/Chelsea/routines",
-    requestOptions
-  )
+  fetch(`${baseUrl}/users/${username}/routines`, requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
@@ -79,4 +76,27 @@ const getRoutinesByUser = async (token, username) => {
   }
 };
 
-export { getRoutines, getActivities, createNewRoutine, getRoutinesByUser };
+const deleteRoutine = async (token, routineIdToDelete) => {
+  try {
+    const response = await fetch(`${baseUrl}/routines/${routineIdToDelete}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const reply = await response.json();
+    console.log("%%%%%%%%", reply);
+    return reply;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export {
+  getRoutines,
+  getActivities,
+  createNewRoutine,
+  getRoutinesByUser,
+  deleteRoutine,
+};

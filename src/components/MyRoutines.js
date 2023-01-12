@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createNewRoutine } from "../api/api";
 import "./MyRoutines.css";
+import { deleteRoutine } from "../api/api";
 
 const MyRoutines = (props) => {
   const [name, setRoutineName] = useState("");
@@ -8,6 +9,20 @@ const MyRoutines = (props) => {
   const [isPublic, setIsPublic] = useState(false);
   // const [token, setToken] = useState(localStorage.getItem("token"));
   const { routines, userData, token, userRoutines } = props;
+  const act = props.activities;
+  console.log("333333333", act);
+
+  const handleDelete = async (routineIdToDelete) => {
+    console.log("11111111111", routineIdToDelete);
+    const response = await deleteRoutine(token, routineIdToDelete);
+
+    //   if (response) {
+    //     const newRoutine = routines.filter(
+    //       (routine) => routine.id !== routineIdToDelete
+    //     );
+    //     updatedRoutines(newRoutines);
+    //   }
+  };
 
   // console.log(
   //   "LLLLLLLLLLLLL",
@@ -63,12 +78,28 @@ const MyRoutines = (props) => {
             <div className="single-routine">
               <h2 className="routine-name">Routine Name: {routine.name}</h2>
               <h3 className="routine-name">Routine Goal: {routine.goal}</h3>
-              <button type="submit" className="delete-button">
+              <button
+                type="submit"
+                className="delete-button"
+                onClick={() => handleDelete(routine.id)}
+              >
                 Delete
               </button>
               <button type="submit" className="edit-button">
                 Edit
               </button>
+              <form className="create-activity">
+                <input></input>
+                <input></input>
+                <select>
+                  {act.map((activity, index) => {
+                    return <option>{activity.name}</option>;
+                  })}
+                </select>
+                <button type="submit" className="submit-activity">
+                  Update Activity
+                </button>
+              </form>
             </div>
           </div>
         );
