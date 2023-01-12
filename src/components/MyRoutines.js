@@ -50,6 +50,7 @@ const MyRoutines = (props) => {
           console.log("44444444444444", result);
 
           setUserRoutines([...userRoutines, result]);
+          // *********************************************************************************************
           setRoutines([...routines, result]);
         }}
       >
