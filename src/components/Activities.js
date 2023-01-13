@@ -8,7 +8,6 @@ const Activities = (props) => {
   const [stateError, setStateError] = useState("");
   const allActivites = props.activities;
   const { token, setActivities, activities } = props;
-  console.log("ssssssss", props);
   return (
     <>
       <h1>All Public Activities</h1>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { createNewRoutine } from "../api/api";
 import "./MyRoutines.css";
 import {
@@ -17,34 +17,21 @@ const MyRoutines = (props) => {
   const [activityId, setActivityId] = useState("");
   const [count, setCount] = useState("");
   const [duration, setDuration] = useState("");
-  const [routineId, setRoutineId] = useState();
   const [editCount, setEditCount] = useState();
   const [editDuration, setEditDuration] = useState();
 
-  const {
-    token,
-    userRoutines,
-    setUserRoutines,
-    setRoutines,
-    activities,
-    userData,
-  } = props;
+  const { token, userRoutines, setUserRoutines, setRoutines, userData } = props;
   const act = props.activities;
 
-  console.log("333333333", userData);
-
   const handleEdit = async (activityIdToEdit) => {
-    // console.log("########", activityIdToEdit);
     const result = await editActivityCountDur({
       activityIdToEdit,
       editCount,
       editDuration,
       token,
     });
-    console.log("!!!!!!!", result);
   };
   const handleDelete = async (routineIdToDelete) => {
-    // console.log("11111111111", routineIdToDelete);
     const response = await deleteRoutine(token, routineIdToDelete);
 
     if (response) {
@@ -56,8 +43,6 @@ const MyRoutines = (props) => {
   };
 
   const handleAddActivity = async (routineId) => {
-    console.log("TTTTTTTTTTTTTTTTT", count, activityId, duration, token);
-
     const result = await attachActivityToRoutine({
       activityId,
       count,

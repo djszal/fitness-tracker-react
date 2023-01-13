@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ const Login = (props) => {
   const [passwordLogin, setPasswordLogin] = useState("");
   const [stateError, setStateError] = useState("");
   const navigate = useNavigate();
-  //   console.log("stateError", stateError);
 
   return (
     <>
@@ -21,13 +20,11 @@ const Login = (props) => {
             if (!usernameLogin || !passwordLogin) {
               e.preventDefault();
               const errorMessage = "Please enter valid username and password";
-              console.log(errorMessage);
               setStateError(errorMessage);
             } else {
               try {
                 e.preventDefault();
                 const response = await loginUser(usernameLogin, passwordLogin);
-                //   console.log("USERNAME ", response);
                 localStorage.setItem("token", response.token);
                 props.setToken(response.token);
                 navigate("/");

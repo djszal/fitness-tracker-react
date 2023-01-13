@@ -125,7 +125,6 @@ const attachActivityToRoutine = async ({
     const parseCount = parseInt(count);
     const parseDur = parseInt(duration);
     const parseAct = parseInt(activityId);
-    // console.log("XXXXXXXXXXX", parseCount);
     const response = await fetch(
       `${baseUrl}/routines/${routineId}/activities`,
       {
@@ -158,7 +157,6 @@ const editActivityCountDur = async ({
   try {
     const parseCount2 = parseInt(editCount);
     const parseDur2 = parseInt(editDuration);
-    // console.log("XXXXXXXXXXX", parseCount);
     const response = await fetch(
       `${baseUrl}/routine_activities/${activityIdToEdit}`,
       {
@@ -174,7 +172,6 @@ const editActivityCountDur = async ({
       }
     );
     const data = await response.json();
-    console.log("YYYYYYYYYYYY", data);
     return data;
   } catch (error) {
     console.error(error);

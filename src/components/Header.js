@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
 const Header = (props) => {
-  console.log("OOOOOOO", props.token);
-
   const logout = () => {
     localStorage.clear();
     props.setToken("");
