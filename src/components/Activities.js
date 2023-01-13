@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Activities.css";
 import { createNewActivity } from "../api/api";
 
@@ -19,7 +19,6 @@ const Activities = (props) => {
             const result = await createNewActivity(name, description, token);
             if (result.error) {
               const errorMessage = "Activity name already exists";
-              console.log(errorMessage);
               setStateError(errorMessage);
             } else {
               setActivities([...activities, result]);

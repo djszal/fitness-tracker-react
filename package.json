@@ -1,7 +1,7 @@
 {
-  "name": "Fitness Tracker React",
+  "name": "Fitness Trackr React",
   "version": "1.0.0",
-  "description": "Fitness Tracker Project",
+  "description": "Fitness Trackr Project",
   "main": "index.js",
   "dependencies": {
     "json": "^11.0.0",

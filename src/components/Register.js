@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { registerUser } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -18,12 +18,10 @@ const Register = (props) => {
             if (!username || !password) {
               e.preventDefault();
               const errorMessage = "Please enter valid username and password";
-              console.log(errorMessage);
               setStateError(errorMessage);
             } else {
               try {
                 e.preventDefault();
-                // console.log("USERNAME ", username);
                 const token = await registerUser(username, password);
                 localStorage.setItem("token", token);
                 props.setToken(token);
@@ -48,7 +46,6 @@ const Register = (props) => {
             minLength={8}
             onChange={(e) => setPassword(e.target.value)}
           ></input>
-          {/* <input  type="password" placeholder="retype password" minLength={3}></input> */}
           <button type="submit">Register</button>
           {stateError ? <h3>{stateError}</h3> : ""}
         </form>

@@ -4,28 +4,11 @@ const getRoutines = async (setRoutines) => {
   try {
     const response = await fetch(`${baseUrl}/routines`);
     const data = await response.json();
-    // console.log(`getRoutines API Call `, data);
     setRoutines(data);
   } catch (error) {
     console.error(error);
   }
 };
-
-// const getUserRoutinesWithAuth = async (setRoutines, token) => {
-//   var myHeaders = new Headers();
-//   myHeaders.append("Authorization", `Bearer ${token}`);
-
-//   var requestOptions = {
-//     method: "GET",
-//     headers: myHeaders,
-//     redirect: "follow",
-//   };
-
-//   fetch(`${baseUrl}/users/${username}/routines`, requestOptions)
-//     .then((response) => response.text())
-//     .then((result) => console.log(result))
-//     .catch((error) => console.log("error", error));
-// };
 
 const getActivities = async (setActivities) => {
   try {
@@ -52,7 +35,6 @@ const createNewRoutine = async (name, goal, isPublic, token) => {
       }),
     });
     const data = await response.json();
-    console.log("YYYYYYYYYYYY", data);
     return data;
   } catch (error) {
     console.error(error);
@@ -69,7 +51,6 @@ const getRoutinesByUser = async (token, username) => {
       },
     });
     const data = await response.json();
-    console.log(`getUserRoutines API Call `, data);
     return data;
   } catch (error) {
     console.error(error);
@@ -86,7 +67,6 @@ const deleteRoutine = async (token, routineIdToDelete) => {
       },
     });
     const reply = await response.json();
-    console.log("%%%%%%%%", reply);
     return reply;
   } catch (error) {
     console.error(error);
@@ -107,7 +87,6 @@ const createNewActivity = async (name, description, token) => {
       }),
     });
     const data = await response.json();
-    console.log("YYYYYYYYYYYY", data);
     return data;
   } catch (error) {
     console.error(error);
@@ -194,7 +173,6 @@ const deleteActivityFromRoutine = async ({
       }
     );
     const data = await response.json();
-    console.log("YYYYYYYYYYYY", data);
     return data;
   } catch (error) {
     console.error(error);

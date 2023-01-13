@@ -17,9 +17,6 @@ const App = () => {
   const [activities, setActivities] = useState([]);
   const [userRoutines, setUserRoutines] = useState([]);
 
-  //   console.log("#########", userData.username);
-  console.log("222222222222222", userRoutines);
-
   useEffect(() => {
     getRoutines(setRoutines);
     setToken(localStorage.getItem("token"));
@@ -28,14 +25,12 @@ const App = () => {
       const getMe = async () => {
         const data = await fetchMe(token);
         setUserData(data);
-        // console.log("UUUUUUUUUUUUUU", data);
       };
       getMe();
     }
     if (userData.username) {
       const usersRoutines = async () => {
         const routineData = await getRoutinesByUser(token, userData.username);
-        console.log("routine data", routineData);
         setUserRoutines(routineData);
       };
       usersRoutines();

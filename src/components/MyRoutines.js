@@ -18,25 +18,13 @@ const MyRoutines = (props) => {
   const [activityId, setActivityId] = useState("");
   const [count, setCount] = useState("");
   const [duration, setDuration] = useState("");
-  const [routineId, setRoutineId] = useState();
   const [editCount, setEditCount] = useState("");
   const [editDuration, setEditDuration] = useState("");
-  const [activityId2, setActivityId2] = useState("");
-  const {
-    token,
-    userRoutines,
-    setUserRoutines,
-    setRoutines,
-    activities,
-    userData,
-  } = props;
+  const { token, userRoutines, setUserRoutines, setRoutines, userData } = props;
   const act = props.activities;
-
-  console.log("333333333", activityId, editCount);
 
   const handleEdit = async (routineActivity) => {
     const routineActivityIdToEdit = routineActivity.routineActivityId;
-    console.log("########", routineActivityIdToEdit);
     const activity = {
       routineActivityIdToEdit,
       token,
@@ -44,7 +32,6 @@ const MyRoutines = (props) => {
       editCount: editCount ? editCount : routineActivity.count,
     };
     const result = await editActivityCountDur(activity);
-    console.log("!!!!!!!", result);
     if (result) {
       const usersRoutines = async () => {
         const routineData = await getRoutinesByUser(token, userData.username);
@@ -57,13 +44,11 @@ const MyRoutines = (props) => {
 
   const handleDeleteActivity = async (routineActivity) => {
     const routineActivityIdToEdit = routineActivity.routineActivityId;
-    console.log("########", routineActivityIdToEdit);
     const activity = {
       routineActivityIdToEdit,
       token,
     };
     const result = await deleteActivityFromRoutine(activity);
-    console.log("!!!!!!!", result);
     if (result) {
       const usersRoutines = async () => {
         const routineData = await getRoutinesByUser(token, userData.username);
@@ -73,6 +58,7 @@ const MyRoutines = (props) => {
       usersRoutines();
     }
   };
+
   const handleDelete = async (routineIdToDelete) => {
     const response = await deleteRoutine(token, routineIdToDelete);
 
@@ -96,7 +82,6 @@ const MyRoutines = (props) => {
     if (result) {
       const usersRoutines = async () => {
         const routineData = await getRoutinesByUser(token, userData.username);
-        console.log("routine data", routineData);
         setUserRoutines(routineData);
       };
       usersRoutines();
@@ -111,7 +96,6 @@ const MyRoutines = (props) => {
           const result = await createNewRoutine(name, goal, isPublic, token);
           if (result.error) {
             const errorMessage = "Routine name already exists";
-            console.log(errorMessage);
             setStateError(errorMessage);
           } else {
             setUserRoutines([...userRoutines, result]);
@@ -189,10 +173,6 @@ const MyRoutines = (props) => {
                           <h3 className="activity-name">
                             Activity Description: {activity.description}
                           </h3>
-                          {/* <h3 className="activity-name">
-                          Activity ID: {activity.id}
-                        </h3> */}
-
                           <h4 className="activity-count">
                             Activity Count: {activity.count}
                           </h4>
@@ -220,7 +200,6 @@ const MyRoutines = (props) => {
                           >
                             Save Count & Duration
                           </button>
-                          {/* <button type="submit" className="save-edit-button" onClick={() => saveActivityEdit()}></button> */}
                         </div>
                       </div>
                     );
