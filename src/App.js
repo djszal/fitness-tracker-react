@@ -18,7 +18,7 @@ const App = () => {
   const [userRoutines, setUserRoutines] = useState([]);
 
   //   console.log("#########", userData.username);
-  //   console.log("222222222222222", routines);
+  console.log("222222222222222", userRoutines);
 
   useEffect(() => {
     getRoutines(setRoutines);

@@ -5,6 +5,7 @@ import {
   deleteRoutine,
   getRoutines,
   attachActivityToRoutine,
+  getRoutinesByUser,
 } from "../api/api";
 
 const MyRoutines = (props) => {
@@ -18,12 +19,17 @@ const MyRoutines = (props) => {
   const [routineId, setRoutineId] = useState();
 
   // const [token, setToken] = useState(localStorage.getItem("token"));
-  const { token, userRoutines, setUserRoutines, setRoutines, activities } =
-    props;
+  const {
+    token,
+    userRoutines,
+    setUserRoutines,
+    setRoutines,
+    activities,
+    userData,
+  } = props;
   const act = props.activities;
-  const userAct = userRoutines.activities;
 
-  // console.log("333333333", [userRoutines]);
+  console.log("333333333", userData);
 
   const handleDelete = async (routineIdToDelete) => {
     // console.log("11111111111", routineIdToDelete);
@@ -49,9 +55,13 @@ const MyRoutines = (props) => {
     });
 
     if (result) {
-      setUserRoutines();
+      const usersRoutines = async () => {
+        const routineData = await getRoutinesByUser(token, userData.username);
+        console.log("routine data", routineData);
+        setUserRoutines(routineData);
+      };
+      usersRoutines();
     }
-    // console.log("TTTTTTTTTTTTTTTTT", result);
   };
 
   return (
@@ -101,7 +111,7 @@ const MyRoutines = (props) => {
       </form>
 
       <h1>My Routines</h1>
-      {console.log("VVVVVVVV", userRoutines)}
+
       {userRoutines.map((routine, index) => {
         return (
           <div className="routine-block" key={index}>
@@ -122,7 +132,6 @@ const MyRoutines = (props) => {
                 <h2>Activities</h2>
 
                 {routine.activities.map((activity, index) => {
-                  console.log("ZZZZZZZ", activity);
                   return (
                     <div className="activities-block" key={index}>
                       <div className="single-activity">
