@@ -7,6 +7,7 @@ import {
   attachActivityToRoutine,
   getRoutinesByUser,
   editActivityCountDur,
+  deleteActivityFromRoutine,
 } from "../api/api";
 
 const MyRoutines = (props) => {
@@ -18,9 +19,9 @@ const MyRoutines = (props) => {
   const [count, setCount] = useState("");
   const [duration, setDuration] = useState("");
   const [routineId, setRoutineId] = useState();
-  const [editCount, setEditCount] = useState();
-  const [editDuration, setEditDuration] = useState();
-
+  const [editCount, setEditCount] = useState("");
+  const [editDuration, setEditDuration] = useState("");
+  const [activityId2, setActivityId2] = useState("");
   const {
     token,
     userRoutines,
@@ -31,17 +32,46 @@ const MyRoutines = (props) => {
   } = props;
   const act = props.activities;
 
-  console.log("333333333", userData);
+  console.log("333333333", activityId, editCount);
 
-  const handleEdit = async (activityIdToEdit) => {
-    // console.log("########", activityIdToEdit);
-    const result = await editActivityCountDur({
-      activityIdToEdit,
-      editCount,
-      editDuration,
+  const handleEdit = async (routineActivity) => {
+    const routineActivityIdToEdit = routineActivity.routineActivityId;
+    console.log("########", routineActivityIdToEdit);
+    const activity = {
+      routineActivityIdToEdit,
       token,
-    });
+      editDuration: editDuration ? editDuration : routineActivity.duration,
+      editCount: editCount ? editCount : routineActivity.count,
+    };
+    const result = await editActivityCountDur(activity);
     console.log("!!!!!!!", result);
+    if (result) {
+      const usersRoutines = async () => {
+        const routineData = await getRoutinesByUser(token, userData.username);
+        console.log("routine data", routineData);
+        setUserRoutines(routineData);
+      };
+      usersRoutines();
+    }
+  };
+
+  const handleDeleteActivity = async (routineActivity) => {
+    const routineActivityIdToEdit = routineActivity.routineActivityId;
+    console.log("########", routineActivityIdToEdit);
+    const activity = {
+      routineActivityIdToEdit,
+      token,
+    };
+    const result = await deleteActivityFromRoutine(activity);
+    console.log("!!!!!!!", result);
+    if (result) {
+      const usersRoutines = async () => {
+        const routineData = await getRoutinesByUser(token, userData.username);
+        console.log("routine data", routineData);
+        setUserRoutines(routineData);
+      };
+      usersRoutines();
+    }
   };
   const handleDelete = async (routineIdToDelete) => {
     // console.log("11111111111", routineIdToDelete);
@@ -143,46 +173,61 @@ const MyRoutines = (props) => {
               <div className="update-routine-activity-block" key={index}>
                 <h2>Activities</h2>
 
-                {routine.activities.map((activity, index) => {
-                  return (
-                    <div className="activities-block" key={index}>
-                      <div className="single-activity">
-                        <h2 className="activity-name">
-                          Activity Name: {activity.name}
-                        </h2>
-                        <h3 className="activity-name">
-                          Activity Description: {activity.description}
-                        </h3>
-                        <h4 className="activity-count">
-                          Activity Count: {activity.count}
-                        </h4>
-                        <input
-                          type="number"
-                          placeholder="Update Activity Count"
-                          value={editCount}
-                          onChange={(e) => setEditCount(e.target.value)}
-                        ></input>
-                        <h4 className="activity-duration">
-                          Activity Duration: {activity.duration}
-                        </h4>
-                        <input
-                          type="number"
-                          placeholder="Update Activity Duration"
-                          value={editDuration}
-                          onChange={(e) => setEditDuration(e.target.value)}
-                        ></input>
-                        <button
-                          type="submit"
-                          className="edit-button"
-                          onClick={() => handleEdit(activity.id)}
-                        >
-                          Save Count & Duration
-                        </button>
-                        {/* <button type="submit" className="save-edit-button" onClick={() => saveActivityEdit()}></button> */}
+                {routine.activities
+                  .sort((a, b) => a.id - b.id)
+                  .map((activity, index) => {
+                    return (
+                      <div className="activities-block" key={index}>
+                        <div className="single-activity">
+                          <h2 className="activity-name">
+                            Activity Name: {activity.name}
+                          </h2>
+                          <button
+                            type="submit"
+                            className="delete-activity-button"
+                            onClick={() => handleDeleteActivity(activity)}
+                          >
+                            Delete Activity
+                          </button>
+                          <h3 className="activity-name">
+                            Activity Description: {activity.description}
+                          </h3>
+                          {/* <h3 className="activity-name">
+                          Activity ID: {activity.id}
+                        </h3> */}
+
+                          <h4 className="activity-count">
+                            Activity Count: {activity.count}
+                          </h4>
+                          <input
+                            type="number"
+                            placeholder="Update Activity Count"
+                            onChange={(e) => {
+                              setEditCount(e.target.value);
+                            }}
+                          ></input>
+                          <h4 className="activity-duration">
+                            Activity Duration: {activity.duration}
+                          </h4>
+                          <input
+                            type="number"
+                            placeholder="Update Activity Duration"
+                            onChange={(e) => {
+                              setEditDuration(e.target.value);
+                            }}
+                          ></input>
+                          <button
+                            type="submit"
+                            className="edit-button"
+                            onClick={() => handleEdit(activity)}
+                          >
+                            Save Count & Duration
+                          </button>
+                          {/* <button type="submit" className="save-edit-button" onClick={() => saveActivityEdit()}></button> */}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
 
                 <form className="create-activity">
                   <select onChange={(e) => setActivityId(e.target.value)}>
