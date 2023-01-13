@@ -142,6 +142,38 @@ const attachActivityToRoutine = async ({
       }
     );
     const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const editActivityCountDur = async ({
+  activityIdToEdit,
+  editCount,
+  editDuration,
+  token,
+}) => {
+  try {
+    const parseCount2 = parseInt(editCount);
+    const parseDur2 = parseInt(editDuration);
+    // console.log("XXXXXXXXXXX", parseCount);
+    const response = await fetch(
+      `${baseUrl}/routine_activities/${activityIdToEdit}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          count: parseCount2,
+          duration: parseDur2,
+        }),
+      }
+    );
+    const data = await response.json();
     console.log("YYYYYYYYYYYY", data);
     return data;
   } catch (error) {
@@ -157,4 +189,5 @@ export {
   deleteRoutine,
   createNewActivity,
   attachActivityToRoutine,
+  editActivityCountDur,
 };

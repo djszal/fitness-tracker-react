@@ -6,6 +6,7 @@ import {
   getRoutines,
   attachActivityToRoutine,
   getRoutinesByUser,
+  editActivityCountDur,
 } from "../api/api";
 
 const MyRoutines = (props) => {
@@ -17,8 +18,9 @@ const MyRoutines = (props) => {
   const [count, setCount] = useState("");
   const [duration, setDuration] = useState("");
   const [routineId, setRoutineId] = useState();
+  const [editCount, setEditCount] = useState();
+  const [editDuration, setEditDuration] = useState();
 
-  // const [token, setToken] = useState(localStorage.getItem("token"));
   const {
     token,
     userRoutines,
@@ -31,6 +33,16 @@ const MyRoutines = (props) => {
 
   console.log("333333333", userData);
 
+  const handleEdit = async (activityIdToEdit) => {
+    // console.log("########", activityIdToEdit);
+    const result = await editActivityCountDur({
+      activityIdToEdit,
+      editCount,
+      editDuration,
+      token,
+    });
+    console.log("!!!!!!!", result);
+  };
   const handleDelete = async (routineIdToDelete) => {
     // console.log("11111111111", routineIdToDelete);
     const response = await deleteRoutine(token, routineIdToDelete);
@@ -141,6 +153,32 @@ const MyRoutines = (props) => {
                         <h3 className="activity-name">
                           Activity Description: {activity.description}
                         </h3>
+                        <h4 className="activity-count">
+                          Activity Count: {activity.count}
+                        </h4>
+                        <input
+                          type="number"
+                          placeholder="Update Activity Count"
+                          value={editCount}
+                          onChange={(e) => setEditCount(e.target.value)}
+                        ></input>
+                        <h4 className="activity-duration">
+                          Activity Duration: {activity.duration}
+                        </h4>
+                        <input
+                          type="number"
+                          placeholder="Update Activity Duration"
+                          value={editDuration}
+                          onChange={(e) => setEditDuration(e.target.value)}
+                        ></input>
+                        <button
+                          type="submit"
+                          className="edit-button"
+                          onClick={() => handleEdit(activity.id)}
+                        >
+                          Save Count & Duration
+                        </button>
+                        {/* <button type="submit" className="save-edit-button" onClick={() => saveActivityEdit()}></button> */}
                       </div>
                     </div>
                   );
@@ -179,9 +217,7 @@ const MyRoutines = (props) => {
                     className="submit-activity"
                     onClick={(e) => {
                       e.preventDefault();
-                      // setRoutineId(routine.id);
                       handleAddActivity(routine.id);
-                      // console.log("CCCCCCCCC", routine.id);
                     }}
                   >
                     Add Activity
