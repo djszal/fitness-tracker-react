@@ -11,7 +11,7 @@ const Header = (props) => {
   return (
     <>
       <div className="header">
-        <h3>Fitness Trac.kr</h3>
+        <h3 className="app-title">Fitness Trac.kr</h3>
         <div className="navbar">
           <Link to={"/"} className="nav-links">
             Home

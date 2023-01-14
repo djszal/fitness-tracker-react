@@ -48,17 +48,19 @@ const Activities = (props) => {
       ) : (
         ""
       )}
-      ;
-      {allActivites.map((activity, index) => {
-        return (
-          <div className="activity-block" key={index}>
-            <div className="single-activity">
-              <h2 className="activity-name">{activity.name}</h2>
-              <h3 className="activity-description">{activity.description}</h3>
+
+      {allActivites
+        .sort((a, b) => a.id - b.id)
+        .map((activity, index) => {
+          return (
+            <div className="activity-block" key={index}>
+              <div className="single-activity">
+                <h2 className="activity-name">{activity.name}</h2>
+                <h3 className="activity-description">{activity.description}</h3>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </>
   );
 };

@@ -139,120 +139,122 @@ const MyRoutines = (props) => {
 
       <h1>My Routines</h1>
 
-      {userRoutines.map((routine, index) => {
-        return (
-          <div className="routine-block" key={index}>
-            <div className="single-routine">
-              <h2 className="routine-name">Routine Name: {routine.name}</h2>
-              <h3 className="routine-name">Routine Goal: {routine.goal}</h3>
-              <button
-                type="submit"
-                className="delete-button"
-                onClick={() => handleDelete(routine.id)}
-              >
-                Delete
-              </button>
-              <button type="submit" className="edit-button">
-                Edit
-              </button>
-              <div className="update-routine-activity-block" key={index}>
-                <h2>Activities</h2>
+      {userRoutines
+        .sort((a, b) => a.id - b.id)
+        .map((routine, index) => {
+          return (
+            <div className="routine-block" key={index}>
+              <div className="single-routine">
+                <h2 className="routine-name">Routine Name: {routine.name}</h2>
+                <h3 className="routine-name">Routine Goal: {routine.goal}</h3>
+                <button
+                  type="submit"
+                  className="delete-button"
+                  onClick={() => handleDelete(routine.id)}
+                >
+                  Delete
+                </button>
+                <button type="submit" className="edit-button">
+                  Edit
+                </button>
+                <div className="update-routine-activity-block" key={index}>
+                  <h2>Activities</h2>
 
-                {routine.activities
-                  .sort((a, b) => a.id - b.id)
-                  .map((activity, index) => {
-                    return (
-                      <div className="activities-block" key={index}>
-                        <div className="single-activity">
-                          <h2 className="activity-name">
-                            Activity Name: {activity.name}
-                          </h2>
-                          <button
-                            type="submit"
-                            className="delete-activity-button"
-                            onClick={() => handleDeleteActivity(activity)}
-                          >
-                            Delete Activity
-                          </button>
-                          <h3 className="activity-name">
-                            Activity Description: {activity.description}
-                          </h3>
-                          <h4 className="activity-count">
-                            Activity Count: {activity.count}
-                          </h4>
-                          <input
-                            type="number"
-                            placeholder="Update Activity Count"
-                            onChange={(e) => {
-                              setEditCount(e.target.value);
-                            }}
-                          ></input>
-                          <h4 className="activity-duration">
-                            Activity Duration: {activity.duration}
-                          </h4>
-                          <input
-                            type="number"
-                            placeholder="Update Activity Duration"
-                            onChange={(e) => {
-                              setEditDuration(e.target.value);
-                            }}
-                          ></input>
-                          <button
-                            type="submit"
-                            className="edit-button"
-                            onClick={() => handleEdit(activity)}
-                          >
-                            Save Count & Duration
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-
-                <form className="create-activity">
-                  <select onChange={(e) => setActivityId(e.target.value)}>
-                    {act.map((activity, index) => {
+                  {routine.activities
+                    .sort((a, b) => a.id - b.id)
+                    .map((activity, index) => {
                       return (
-                        <option key={index} value={activity.id}>
-                          {activity.name}
-                        </option>
+                        <div className="activities-block" key={index}>
+                          <div className="single-activity">
+                            <h2 className="activity-name">
+                              Activity Name: {activity.name}
+                            </h2>
+                            <button
+                              type="submit"
+                              className="delete-activity-button"
+                              onClick={() => handleDeleteActivity(activity)}
+                            >
+                              Delete Activity
+                            </button>
+                            <h3 className="activity-name">
+                              Activity Description: {activity.description}
+                            </h3>
+                            <h4 className="activity-count">
+                              Activity Count: {activity.count}
+                            </h4>
+                            <input
+                              type="number"
+                              placeholder="Update Activity Count"
+                              onChange={(e) => {
+                                setEditCount(e.target.value);
+                              }}
+                            ></input>
+                            <h4 className="activity-duration">
+                              Activity Duration: {activity.duration}
+                            </h4>
+                            <input
+                              type="number"
+                              placeholder="Update Activity Duration"
+                              onChange={(e) => {
+                                setEditDuration(e.target.value);
+                              }}
+                            ></input>
+                            <button
+                              type="submit"
+                              className="edit-button"
+                              onClick={() => handleEdit(activity)}
+                            >
+                              Save Count & Duration
+                            </button>
+                          </div>
+                        </div>
                       );
                     })}
-                  </select>
-                  <label>
-                    Count:
-                    <input
-                      type="number"
-                      name="count"
-                      placeholder="Insert Count"
-                      onChange={(e) => setCount(e.target.value)}
-                    ></input>
-                  </label>
-                  <label>
-                    Duration:
-                    <input
-                      type="number"
-                      name="duration"
-                      placeholder="Insert Duration"
-                      onChange={(e) => setDuration(e.target.value)}
-                    ></input>
-                  </label>
-                  <button
-                    type="submit"
-                    className="submit-activity"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleAddActivity(routine.id);
-                    }}
-                  >
-                    Add Activity
-                  </button>
-                </form>
+
+                  <form className="create-activity">
+                    <select onChange={(e) => setActivityId(e.target.value)}>
+                      {act.map((activity, index) => {
+                        return (
+                          <option key={index} value={activity.id}>
+                            {activity.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <label>
+                      Count:
+                      <input
+                        type="number"
+                        name="count"
+                        placeholder="Insert Count"
+                        onChange={(e) => setCount(e.target.value)}
+                      ></input>
+                    </label>
+                    <label>
+                      Duration:
+                      <input
+                        type="number"
+                        name="duration"
+                        placeholder="Insert Duration"
+                        onChange={(e) => setDuration(e.target.value)}
+                      ></input>
+                    </label>
+                    <button
+                      type="submit"
+                      className="submit-activity"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleAddActivity(routine.id);
+                      }}
+                    >
+                      Add Activity
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </>
   );
 };

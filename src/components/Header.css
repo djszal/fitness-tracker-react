@@ -17,13 +17,15 @@
     
 }
 
-h3 {
-    color: #fb8500;
-}
+
 
 .nav-links {
     margin: 10px;
     color: white;
 
+}
 
+.nav-links:hover {
+    color: #fb8500; 
+    text-decoration: none;
 }
