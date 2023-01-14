@@ -98,7 +98,11 @@ const MyRoutines = (props) => {
             const errorMessage = "Routine name already exists";
             setStateError(errorMessage);
           } else {
-            setUserRoutines([...userRoutines, result]);
+            const routineData = await getRoutinesByUser(
+              token,
+              userData.username
+            );
+            setUserRoutines(routineData);
             getRoutines(setRoutines);
           }
         }}
