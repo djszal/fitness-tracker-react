@@ -5,15 +5,14 @@ import "./Home.css";
 const Home = (props) => {
   const [search, setSearch] = useState("");
   const [searchedRoutine, setSearchedRoutine] = useState({});
-  console.log("PPPPPP", search);
-  console.log("LLLLLL", searchedRoutine);
 
   const { activities, routines } = props;
 
   const handleSearch = (e) => {
     routines.map((routine) => {
       e.preventDefault();
-      routine.name === search ? setSearchedRoutine(routine) : "";
+      // routine.name === search ? setSearchedRoutine(routine) : "";
+      routine.name.includes(search) ? setSearchedRoutine(routine) : "";
     });
   };
 
@@ -36,7 +35,7 @@ const Home = (props) => {
               handleSearch(e);
             }}
           >
-            Search for Routine or Activity
+            Search for Routine
           </button>
         </form>
       </div>
