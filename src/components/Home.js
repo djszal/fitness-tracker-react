@@ -4,16 +4,21 @@ import "./Home.css";
 
 const Home = (props) => {
   const [search, setSearch] = useState("");
-  const [searchedRoutine, setSearchedRoutine] = useState({});
+  const [searchedRoutine, setSearchedRoutine] = useState([]);
 
   const { activities, routines } = props;
 
   const handleSearch = (e) => {
     routines.map((routine) => {
       e.preventDefault();
-      // routine.name === search ? setSearchedRoutine(routine) : "";
       routine.name.includes(search) ? setSearchedRoutine(routine) : "";
     });
+    // routines.filter((routine) => {
+    //   e.preventDefault();
+    //   if (routine.name.includes(search)) {
+    //     setSearchedRoutine(routine);
+    //   }
+    // });
   };
 
   return (
@@ -22,7 +27,7 @@ const Home = (props) => {
       <div className="search-bar">
         <form>
           <input
-            type="text"
+            type="search"
             name="search"
             placeholder="Search"
             value={search}
