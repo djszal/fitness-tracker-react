@@ -1,4 +1,4 @@
-const baseUrl = "http://fitnesstrac-kr.herokuapp.com/api";
+const baseUrl = "https://fitnesstrac-kr.herokuapp.com/api";
 
 const getRoutines = async (setRoutines) => {
   try {
