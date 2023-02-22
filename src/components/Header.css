@@ -6,7 +6,8 @@
  }
 
  .header {
-    background-color: #023047;
+    /* background-color: #023047; */
+    background-color: white;
     border-bottom: 1px black solid;
     display: flex;
     justify-content: space-around;
