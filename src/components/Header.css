@@ -6,8 +6,7 @@
  }
 
  .header {
-    /* background-color: #023047; */
-    background-color: white;
+    background-color: #023047;
     border-bottom: 1px black solid;
     display: flex;
     justify-content: space-around;
@@ -27,6 +26,6 @@
 }
 
 .nav-links:hover {
-    /* color: #fb8500;  */
+    color: #fb8500; 
     text-decoration: none;
 }
