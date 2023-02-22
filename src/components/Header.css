@@ -27,6 +27,6 @@
 }
 
 .nav-links:hover {
-    color: #fb8500; 
+    /* color: #fb8500;  */
     text-decoration: none;
 }
