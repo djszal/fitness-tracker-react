@@ -35,7 +35,7 @@ const Home = (props) => {
           />
           <button
             type="submit"
-            className="search-button"
+            className="button"
             onClick={(e) => {
               handleSearch(e);
             }}

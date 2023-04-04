@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+ }
+
+ .title {
+    display: flex;
+    justify-content: center;
+ }
+
+ .login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 50px 500px 0px 500px;
+ }
+
+ 
+
+ .register-link{
+    display: flex;
+    justify-content: center;
+ }
