@@ -16,7 +16,7 @@ const App = () => {
   const [routines, setRoutines] = useState([]);
   const [activities, setActivities] = useState([]);
   const [userRoutines, setUserRoutines] = useState([]);
-
+ console.log(routines)
   useEffect(() => {
     getRoutines(setRoutines);
     setToken(localStorage.getItem("token"));

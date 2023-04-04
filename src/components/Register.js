@@ -46,7 +46,7 @@ const Register = (props) => {
             minLength={8}
             onChange={(e) => setPassword(e.target.value)}
           ></input>
-          <button type="submit">Register</button>
+          <button type="submit" className="button">Register</button>
           {stateError ? <h3>{stateError}</h3> : ""}
         </form>
       </div>

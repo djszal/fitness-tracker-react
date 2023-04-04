@@ -10,5 +10,12 @@
   }
 
   .button {
-   /* margin-left: 50px; */
+   /* position: absolute; */
+   padding: 10px 10px 10px 10px;
+    top:50%;
+    background-color:#0a0a23;
+    color: #fff;
+    border:none;
+    border-radius:10px;
+    cursor: pointer;
   }

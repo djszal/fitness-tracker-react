@@ -1,13 +1,22 @@
+import axios from 'axios';
+
 const baseUrl = "https://fitnesstrac-kr.herokuapp.com/api";
 
 const getRoutines = async (setRoutines) => {
   try {
-    const response = await fetch(`${baseUrl}/routines`);
-    const data = await response.json();
-    setRoutines(data);
+    const response = await axios.get(`${baseUrl}/routines`);
+    console.log(response.data);
+    setRoutines(response.data)
   } catch (error) {
     console.error(error);
   }
+  // try {
+  //   const response = await fetch(`${baseUrl}/routines`);
+  //   const data = await response.json();
+  //   setRoutines(data);
+  // } catch (error) {
+  //   console.error(error);
+  // }
 };
 
 const getActivities = async (setActivities) => {
