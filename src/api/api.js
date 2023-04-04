@@ -5,7 +5,6 @@ const baseUrl = "https://fitnesstrac-kr.herokuapp.com/api";
 const getRoutines = async (setRoutines) => {
   try {
     const response = await axios.get(`${baseUrl}/routines`);
-    console.log(response.data);
     setRoutines(response.data)
   } catch (error) {
     console.error(error);
