@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Activities.css";
+import "./style/Activities.css";
 import { createNewActivity } from "../api/api";
 
 const Activities = (props) => {

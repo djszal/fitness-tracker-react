@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Home.css";
+import "./style/Home.css";
 
 const Home = (props) => {
   const [search, setSearch] = useState("");

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createNewRoutine } from "../api/api";
-import "./MyRoutines.css";
+import "./style/MyRoutines.css";
 import {
   deleteRoutine,
   getRoutines,
