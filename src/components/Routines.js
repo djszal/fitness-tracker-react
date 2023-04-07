@@ -1,5 +1,5 @@
 import React from "react";
-import './style/Routines'
+import './style/Routines.css'
 
 const Routines = (props) => {
   const allRoutines = props.routines;
