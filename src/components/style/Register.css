@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+ }
+
+ .title {
+    display: flex;
+    justify-content: center;
+ }
+
+ .register-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 25px 750px 0px 750px;
+ }
+
+ 
+
+ .register-button{
+   margin-top: 10px;
+   width: 200px;
+   
+ }

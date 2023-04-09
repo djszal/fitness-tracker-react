@@ -48,7 +48,7 @@ const Login = (props) => {
             minLength={8}
             onChange={(e) => setPasswordLogin(e.target.value)}
           ></input>
-          <button type="submit" className="button">Login</button>
+          <button type="submit" className="button login-button">Login</button>
           <Link to="/register" className="register-link">Don't have an account? Register Here</Link>
           {stateError ? <h3>{stateError}</h3> : ""}
         </form>
