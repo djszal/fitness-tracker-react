@@ -20,9 +20,10 @@ const getRoutines = async (setRoutines) => {
 
 const getActivities = async (setActivities) => {
   try {
-    const response = await fetch(`${baseUrl}/activities`);
-    const data = await response.json();
-    setActivities(data);
+    const response = await axios.get(`${baseUrl}/activities`);
+    // const data = await response.json();
+    setActivities(response.data);
+    console.log(response.data)
   } catch (error) {
     console.error(error);
   }

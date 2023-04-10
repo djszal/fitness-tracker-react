@@ -13,10 +13,13 @@
  .register-form{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin: 25px 750px 0px 750px;
+    align-items: center;
+    margin-top: 25px;
  }
 
+ .register-input{
+   width: 250px;
+ }
  
 
  .register-button{

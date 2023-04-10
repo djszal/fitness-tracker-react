@@ -13,8 +13,12 @@
  .login-form{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin: 25px 750px 0px 750px;
+    align-items: center;
+    margin-top: 25px ;
+ }
+
+ .login-input{
+   width: 250px;
  }
 
  
@@ -22,6 +26,7 @@
  .register-link{
     display: flex;
     justify-content: center;
+    margin-top: 25px;
  }
 
  .login-button{

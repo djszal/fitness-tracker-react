@@ -38,6 +38,7 @@ const Register = (props) => {
             type="text"
             placeholder="username"
             minLength={3}
+            className="register-input"
             onChange={(e) => setUsername(e.target.value)}
           ></input>
           <input
@@ -45,6 +46,7 @@ const Register = (props) => {
             type="password"
             placeholder="password"
             minLength={8}
+            className="register-input"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
           <button type="submit" className="button register-button">Register</button>

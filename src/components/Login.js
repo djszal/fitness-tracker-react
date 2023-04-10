@@ -38,12 +38,14 @@ const Login = (props) => {
             value={usernameLogin}
             type="text"
             placeholder="username"
+            className="login-input"
             minLength={3}
             onChange={(e) => setUsernameLogin(e.target.value)}
           ></input>
           <input
             value={passwordLogin}
             type="password"
+            className="login-input"
             placeholder="password"
             minLength={8}
             onChange={(e) => setPasswordLogin(e.target.value)}
